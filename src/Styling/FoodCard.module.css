@@ -1,0 +1,47 @@
+.cardContainer{
+    width: 15rem;
+    border: thin solid lightgray;
+    border-radius: 0.3rem;
+}
+
+.cardThumbNail>img{
+    width: 100%;
+    height: 8.5rem;
+    
+}
+
+.cardContent {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    gap: 0.2rem;
+}
+.cardContentContainer{
+    padding: 1rem;
+}
+
+.title{
+    font-size: 1.5rem;
+}
+.cardbuttons{
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.3rem;
+}
+.cardbuttons button{
+    font-size: 1.5rem;
+    padding:0.2rem 1.3rem;
+    border-radius: 0.3rem;
+
+}
+.plus{
+    background-color: blue;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+.minus{
+    background-color: lightgray;
+    border: none;
+    cursor: pointer;
+}
