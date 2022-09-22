@@ -1,7 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from '../Styling/Login.module.css'
+import SignUP from "./SignUP";
+import { useDispatch } from "react-redux";
+import db from "./Firebase";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signIn } from "../features/Userslice";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [flag, setflag] = useState(true);
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log("hello")
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        return user;
+      })
+      .then((user) => {
+        dispatch(
+          signIn({
+            email: user.email,
+
+          })
+        );
+      navigate("/welcome")
+
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+        alert(errorMessage);
+        console.log(errorCode);
+      });
+    
+    setemail("");
+    setpassword("")
+  }
+  if (flag) {
     return(
       <div className={styles.loginContainer}>
             <div className={styles.loginContent}>
@@ -11,18 +54,26 @@ export default function Login() {
         <span>Order from best restaurant in india</span>
           </div>
           <div className={styles.loginForm}>
-              <form >
+              <form onSubmit={handleSubmit} >
                   
-              <input type="email"  placeholder="email"/>
-                  <input type="password" placeholder="password"/>
+              <input type="email" value={email} onChange={(e)=>setemail(e.target.value)}  placeholder="email"/>
+                  <input type="password" value={password} onChange={(e)=>setpassword(e.target.value)} placeholder="password"/>
                   <button type="submit">Log In</button>
               </form>
 
               </div>
           </div>
           <div className={styles.Signuprouter}>
-              <span>New customer ?</span><span className={styles.signUpText}>Sign Up</span>
+              <span>New customer ?</span><span className={styles.signUpText} onClick={()=>setflag(!flag)}>Sign Up</span>
           </div>  
     </div>
   );
+  }
+  else {
+    return (
+      
+      <SignUP flag={flag} setflag={setflag} />
+    )
+  }
+    
 }

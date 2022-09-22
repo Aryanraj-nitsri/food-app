@@ -1,18 +1,14 @@
-// import React from 'react'
+import React from 'react'
+import ReactDOM from 'react-dom';
+import styles from '../Styling/Modals.module.css'
 
-// export default function Modal () {
-//   return (
-//     <div>
-// <Modal
-// //   open={open}
-// //   onClose={handleClose}
-//   aria-labelledby="modal-modal-title"
-//   aria-describedby="modal-modal-description"
-// >
-//               <Box sx={style}>
-                  
-//   </Box>
-// </Modal>
-//     </div>
-//   )
-// }
+export default function Modals({ open, children}) {
+    if(!open) return null
+    return ReactDOM.createPortal (
+        <div className={styles.modalWrapper}>
+            {children}
+        </div>,
+        document.getElementById("portal")
+  )
+    
+}

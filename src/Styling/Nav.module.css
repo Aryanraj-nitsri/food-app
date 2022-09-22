@@ -19,6 +19,7 @@
 }
 .rightPart>img{
 width: 2rem;
+cursor: pointer;
 }
 .itemNotification{
     width: 1.4rem;

@@ -2,13 +2,9 @@ import React from "react";
 import styles from "../Styling/FoodCard.module.css";
 import { useState } from "react";
 
-export default function FoodCard({ item }) {
-  const [Count,setcount]=useState(item.count)
-  function handleMinus() {
-    if (Count > 0) {
-     setcount(Count-1)
-   }
- }
+export default function FoodCard({ item,handlePlus,handleMinus}) {
+
+  console.log("insideFoodCArd")
   return (
     <div className={styles.cardContainer}>
       <div className={styles.cardThumbNail}>
@@ -19,14 +15,14 @@ export default function FoodCard({ item }) {
       <div className={styles.cardContent}>
           <span className={styles.title}>{item.name}</span>
           <span>Price:{item.price}</span>
-          {Count?
-          (<><span>Total:{ Count}</span>
-          <span>Cost:({Count*item.price})</span></>):""
+          {item.count?
+          (<><span>Total:{ item.count}</span>
+          <span>Cost:({item.count*item.price})</span></>):""
           }
       </div>
       <div className={styles.cardbuttons}>
-        <button className={styles.plus} onClick={()=>{setcount(Count+1)}}>+</button>
-        <button className={styles.minus} onClick={handleMinus}>-</button>
+        <button className={styles.plus} onClick={()=>{handlePlus(item)}}>+</button>
+        <button className={styles.minus} onClick={()=>handleMinus(item)}>-</button>
               </div>
           </div>
               
