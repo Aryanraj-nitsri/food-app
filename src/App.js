@@ -5,12 +5,16 @@ import Login from "./Components/Login";
 import Foodmenu from "./Components/Foodmenu";
 import Checkout from "./Components/Checkout";
 import FoodcardItems from "./Components/FoodcardItems";
+import SignUP from "./Components/SignUP";
 import data from "./feeds.json";
 import Modals from "./Components/Modals";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import {  Outlet} from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import db from './Components/Firebase'
+
+
 
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -34,12 +38,15 @@ function App() {
   }
   function handleMinus(item) {
     let index = products.indexOf(item);
-    products[index].count -= 1;
-    setproduct(products);
-    products.forEach((element) => {
-      count += element.count;
-    });
-    settotal(count);
+    if (products[index].count > 0) {
+      
+      products[index].count -= 1;
+      setproduct(products);
+      products.forEach((element) => {
+        count += element.count;
+      });
+      settotal(count);
+    }
   }
   let itemsToCheckOut = products.filter((item) => {
     return item.count > 0;
@@ -91,7 +98,8 @@ function App() {
           </div>
         </Modals>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<SignUP />} />
+          <Route path="/login" element={<Login/> } />
           <Route element={<PrivateRoute/>} >
             <Route element={<Foodmenu />} path="/welcome" />
             <Route

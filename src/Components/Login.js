@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import styles from '../Styling/Login.module.css'
-import SignUP from "./SignUP";
 import { useDispatch } from "react-redux";
-import db from "./Firebase";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { signIn } from "../features/Userslice";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +11,6 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [flag, setflag] = useState(true);
   function handleSubmit(e) {
     e.preventDefault();
     console.log("hello")
@@ -44,7 +41,7 @@ export default function Login() {
     setemail("");
     setpassword("")
   }
-  if (flag) {
+  
     return(
       <div className={styles.loginContainer}>
             <div className={styles.loginContent}>
@@ -64,16 +61,12 @@ export default function Login() {
               </div>
           </div>
           <div className={styles.Signuprouter}>
-              <span>New customer ?</span><span className={styles.signUpText} onClick={()=>setflag(!flag)}>Sign Up</span>
+              <span>New customer ?</span><span className={styles.signUpText} onClick={()=>navigate("/")}>Sign Up</span>
           </div>  
     </div>
   );
   }
-  else {
-    return (
-      
-      <SignUP flag={flag} setflag={setflag} />
-    )
-  }
+  
+  
     
-}
+
